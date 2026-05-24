@@ -1,70 +1,124 @@
-# CodeIgniter 4 Application Starter
+# Viaggi Gallery
 
-## What is CodeIgniter?
+Aplicación web de gestión de imágenes desarrollada para la materia Lenguajes de Programación Back End
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+Permite a los usuarios crear una galería personal donde pueden subir y eliminar imágenes. Cuenta con un sistema de roles donde el administrador puede gestionar las cuentas y contenido de todos los usuarios.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+---
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## Funcionalidades
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+- Registro e inicio de sesión de usuarios
+- Galería personal — cada usuario ve solo sus imágenes
+- Subir y eliminar imágenes
+- Ordenar imágenes por fecha o nombre
+- Panel de administrador para gestionar imágenes y usuarios
 
-## Installation & updates
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+## ⚙️ Instalación local
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+### Requisitos
+- XAMPP (PHP 8 + MySQL)
+- Composer
 
-## Setup
+### Pasos
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+1. Clona el repositorio dentro de `htdocs`:
+   ```bash
+   git clone https://github.com/tu-usuario/viaggi-gallery.git
+   cd mi_galeria
+   ```
 
-## Important Change with index.php
+2. Instala las dependencias:
+   ```bash
+   composer install
+   ```
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+3. Copia el archivo de entorno:
+   ```bash
+   cp .env.example .env
+   ```
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+4. Edita `.env` con tus datos locales:
+   ```
+   app.baseURL = 'http://localhost/mi_galeria/public/'
+   database.default.hostname = localhost
+   database.default.database = aplicacion_mvc
+   database.default.username = root
+   database.default.password =
+   ```
 
-**Please** read the user guide for a better explanation of how CI4 works!
+5. Importa la base de datos en phpMyAdmin:
+   - Crea una base de datos llamada `aplicacion_mvc`
+   - Importa el archivo `database.sql`
 
-## Repository Management
+6. Crea la carpeta de uploads:
+   ```
+   public/uploads/
+   ```
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+7. Abre en tu navegador:
+   ```
+   http://localhost/mi_galeria/public/
+   ```
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+---
 
-## Server Requirements
+## Roles
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+| Rol | Permisos |
+|-----|----------|
+| Usuario | Subir, ver y eliminar sus propias imágenes |
+| Administrador | Gestionar imágenes y cuentas de todos los usuarios |
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+Para crear un administrador, registra un usuario normal y ejecuta en phpMyAdmin:
+```sql
+UPDATE `user` SET `role` = 'admin' WHERE `login` = 'tu_login';
+```
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+---
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+## 📁 Estructura del proyecto
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
-# viaggigallery
+```
+mi_galeria/
+├── app/
+│   ├── Config/
+│   ├── Controllers/
+│   │   ├── BaseController.php
+│   │   ├── Home.php
+│   │   ├── ImageController.php
+│   │   ├── Publication.php
+│   │   └── User.php
+│   ├── Database/
+│   ├── Filters/
+│   ├── Helpers/
+│   ├── Language/
+│   ├── Libraries/
+│   ├── Models/
+│   │   ├── ImageModel.php
+│   │   ├── PublicationModel.php
+│   │   └── UserModel.php
+│  
+│   └── Views/
+│       ├── admin/
+│       │   └── gallery.php
+│       ├── errors/
+│       ├── Publication/
+│       │   ├── all.php
+│       │   └── edit.php
+│       ├── user/
+│       │   ├── all.php
+│       │   ├── edit.php
+│       │   └── register.php
+│       ├── footer.php
+│       ├── gallery.php
+│       ├── header.php
+│       ├── Home.php
+│     
+├── public/
+│   └── uploads/
+
+├── database.sql
+└── .env.example
+```
