@@ -15,7 +15,7 @@ Permite a los usuarios crear una galería personal donde pueden subir y eliminar
 - Panel de administrador para gestionar imágenes y usuarios
 
 
-## ⚙️ Instalación local
+## Instalación local
 
 ### Requisitos
 - XAMPP (PHP 8 + MySQL)
@@ -78,7 +78,7 @@ UPDATE `user` SET `role` = 'admin' WHERE `login` = 'tu_login';
 
 ---
 
-## 📁 Estructura del proyecto
+## Estructura del proyecto
 
 ```
 mi_galeria/
