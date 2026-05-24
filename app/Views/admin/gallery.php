@@ -33,22 +33,23 @@
         display: block;
     }
 
-    .img-card-body {
-        padding: 14px 16px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-    }
+ .img-card-body {
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
 
-    .img-name {
-        font-size: 0.8rem;
-        color: #6B5B6E;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 150px;
-    }
+.img-name {
+    font-size: 0.8rem;
+    color: #6B5B6E;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+}
 
     .img-owner {
         font-size: 0.75rem;
@@ -64,6 +65,26 @@
         padding: 80px 20px;
         color: #6B5B6E;
     }
+    
+.btn-delete {
+    background-color: #8B3A3A;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    padding: 7px 16px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: 0.2s;
+    text-decoration: none;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.btn-delete:hover {
+    background-color: #5C1F1F;
+    color: white;
+}
+    
 </style>
 
 <div class="container gallery-wrapper">
@@ -86,7 +107,7 @@
                             <div class="img-name"><?= $img['file_name'] ?></div>
                             <span class="img-owner"><?= $img['login'] ?></span>
                         </div>
-                        <a class="btn btn-delete"
+                        <a class="btn-delete"
                            href="<?= base_url('image/delete/' . $img['id']) ?>">
                             Eliminar
                         </a>
